@@ -106,31 +106,11 @@ in {
         Restart = "always";
         RestartSec = "5s";
 
+        StandardInput = "null";
+        StandardOutput = "journal";
+        StandardError = "journal";
+
         NoNewPrivileges = true;
-        PrivateTmp = true;
-        ProtectHome = true;
-        ProtectClock = true;
-        ProtectProc = "invisible";
-        ProcSubset = "pid";
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectControlGroups = true;
-        RestrictNamespaces = true;
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        RemoveIPC = true;
-
-        DeviceAllow = [
-          "/dev/input/event* rw"
-          "/dev/uinput rw"
-        ];
-        DevicePolicy = "strict";
-
-        CapabilityBoundingSet = ["CAP_DAC_OVERRIDE"];
-        AmbientCapabilities = ["CAP_DAC_OVERRIDE"];
       };
 
       script = let
