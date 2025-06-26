@@ -111,6 +111,11 @@ in {
         StandardError = "journal";
 
         NoNewPrivileges = true;
+        ProtectClock = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectControlGroups = true;
       };
 
       script = let
