@@ -128,7 +128,7 @@ in {
             # "/dev/input/event* rw"
             "/dev/uinput rw"
           ]
-          ++ cfg.device;
+          ++ [cfg.device];
         DevicePolicy = "strict";
 
         CapabilityBoundingSet = ["CAP_DAC_OVERRIDE"];
