@@ -123,26 +123,11 @@ in {
         RestrictSUIDSGID = true;
         RemoveIPC = true;
 
-        DeviceAllow =
-          [
-            "/dev/uinput rw"
-            "${cfg.device} rw"
-            "/dev/input rw"
-            "char-input rw"
-          ]
-          ++ (
-            if (lib.hasPrefix "/dev/input/by-path/" cfg.device)
-            then [
-              "/dev/input/by-path rw"
-            ]
-            else if (lib.hasPrefix "/dev/input/by-id/" cfg.device)
-            then [
-              "/dev/input/by-id rw"
-            ]
-            else [
-              "/dev/input/event* rw"
-            ]
-          );
+        DeviceAllow = [
+          "/dev/uinput rw"
+          "${cfg.device} rw"
+          "char-input rw"
+        ];
 
         CapabilityBoundingSet = ["CAP_DAC_OVERRIDE"];
         AmbientCapabilities = ["CAP_DAC_OVERRIDE"];
