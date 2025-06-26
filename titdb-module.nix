@@ -120,6 +120,8 @@ in {
         LockPersonality = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
+        CapabilityBoundingSet = ["CAP_DAC_OVERRIDE"];
+        AmbientCapabilities = ["CAP_DAC_OVERRIDE"];
       };
 
       script = let
