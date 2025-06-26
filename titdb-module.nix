@@ -123,10 +123,12 @@ in {
         RestrictSUIDSGID = true;
         RemoveIPC = true;
 
-        DeviceAllow = [
-          "/dev/input/event* rw"
-          "/dev/uinput rw"
-        ];
+        DeviceAllow =
+          [
+            # "/dev/input/event* rw"
+            "/dev/uinput rw"
+          ]
+          ++ cfg.device;
         DevicePolicy = "strict";
 
         CapabilityBoundingSet = ["CAP_DAC_OVERRIDE"];
