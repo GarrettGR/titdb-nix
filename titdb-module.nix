@@ -126,6 +126,7 @@ in {
         DeviceAllow = [
           "/dev/uinput rw"
           "${cfg.device} r"
+          "/dev/null rw"
           "/dev/input r"
         ];
         DevicePolicy = "strict";
