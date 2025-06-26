@@ -125,10 +125,24 @@ in {
 
         DeviceAllow =
           [
-            # "/dev/input/event* rw"
             "/dev/uinput rw"
+            "${cfg.device} rw"
+            "/dev/input rw"
+            "char-input rw"
           ]
-          ++ [cfg.device];
+          ++ (
+            if (lib.hasPrefix "/dev/input/by-path/" cfg.device)
+            then [
+              "/dev/input/by-path rw"
+            ]
+            else if (lib.hasPrefix "/dev/input/by-id/" cfg.device)
+            then [
+              "/dev/input/by-id rw"
+            ]
+            else [
+              "/dev/input/event* rw"
+            ]
+          );
         DevicePolicy = "strict";
 
         CapabilityBoundingSet = ["CAP_DAC_OVERRIDE"];
