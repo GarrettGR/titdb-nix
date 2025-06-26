@@ -125,9 +125,11 @@ in {
 
         DeviceAllow = [
           "/dev/uinput rw"
-          "${cfg.device} rw"
-          "char-input rw"
+          "${cfg.device} r"
+          "/dev/null rw"
+          "/dev/input r"
         ];
+        DevicePolicy = "strict";
 
         CapabilityBoundingSet = ["CAP_DAC_OVERRIDE"];
         AmbientCapabilities = ["CAP_DAC_OVERRIDE"];
