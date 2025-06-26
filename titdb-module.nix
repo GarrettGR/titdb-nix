@@ -143,7 +143,6 @@ in {
               "/dev/input/event* rw"
             ]
           );
-        DevicePolicy = "strict";
 
         CapabilityBoundingSet = ["CAP_DAC_OVERRIDE"];
         AmbientCapabilities = ["CAP_DAC_OVERRIDE"];
