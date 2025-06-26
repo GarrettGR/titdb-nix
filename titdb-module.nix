@@ -122,6 +122,9 @@ in {
         RestrictSUIDSGID = true;
         CapabilityBoundingSet = ["CAP_DAC_OVERRIDE"];
         AmbientCapabilities = ["CAP_DAC_OVERRIDE"];
+        MemoryDenyWriteExecute = true;
+        ProtectProc = "invisible";
+        ProcSubset = "pid";
       };
 
       script = let
