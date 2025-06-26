@@ -116,6 +116,10 @@ in {
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectControlGroups = true;
+        RestrictNamespaces = true;
+        LockPersonality = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
       };
 
       script = let
