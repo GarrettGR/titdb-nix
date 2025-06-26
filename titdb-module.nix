@@ -125,6 +125,14 @@ in {
         MemoryDenyWriteExecute = true;
         ProtectProc = "invisible";
         ProcSubset = "pid";
+
+        DeviceAllow = [
+          "/dev/input rw"
+          "/dev/input/event* rw"
+          "/dev/uinput rw"
+          "char-input rw"
+        ];
+        DevicePolicy = "strict";
       };
 
       script = let
