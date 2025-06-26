@@ -124,8 +124,9 @@ in {
         RemoveIPC = true;
 
         DeviceAllow = [
-          "/dev/input/event* rw"
           "/dev/uinput rw"
+          "${cfg.device} r"
+          "/dev/null rw"
         ];
         DevicePolicy = "strict";
 
