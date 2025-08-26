@@ -21,7 +21,7 @@ in
       owner = "tascvh";
       repo = "trackpad-is-too-damn-big";
       rev = "main";
-      sha256 = "sha256-WAJXSWO3d8JfvBXS23hRxBbyP2vESXf+aVRLy7u/Jgw=";
+      sha256 = "sha256-lMU2SgdooMYz7UtEfAhW0ykMNhaCeMeLLlEm94MHxvs=";
     };
 
     nativeBuildInputs = [
