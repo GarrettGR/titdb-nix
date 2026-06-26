@@ -3,26 +3,33 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-  }:
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        pkgs = nixpkgs.legacyPackages.${system};
+  outputs =
+    { self, nixpkgs }:
+    let
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
-        trackpad-is-too-damn-big = pkgs.callPackage ./trackpad-is-too-damn-big.nix {};
-      in {
-        packages = {
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+      perSystem = f: forAllSystems (system: f nixpkgs.legacyPackages.${system});
+    in
+    {
+      packages = perSystem (
+        pkgs:
+        let
+          trackpad-is-too-damn-big = pkgs.callPackage ./trackpad-is-too-damn-big.nix { };
+        in
+        {
           default = trackpad-is-too-damn-big;
-          trackpad-is-too-damn-big = trackpad-is-too-damn-big;
-        };
+          inherit trackpad-is-too-damn-big;
+        }
+      );
 
-        devShells.default = pkgs.mkShell {
+      devShells = perSystem (pkgs: {
+        default = pkgs.mkShell {
           buildInputs = with pkgs; [
             cmake
             pkg-config
@@ -38,18 +45,17 @@
             echo "  cmake, make, gcc, gdb, valgrind"
           '';
         };
+      });
 
-        checks = {
-          build = trackpad-is-too-damn-big;
-        };
-      }
-    )
-    // {
+      checks = forAllSystems (system: {
+        build = self.packages.${system}.default;
+      });
+
       nixosModules.default = import ./titdb-module.nix;
       nixosModules.titdb = import ./titdb-module.nix;
 
       overlays.default = final: prev: {
-        trackpad-is-too-damn-big = final.callPackage ./trackpad-is-too-damn-big.nix {};
+        trackpad-is-too-damn-big = final.callPackage ./trackpad-is-too-damn-big.nix { };
       };
     };
 }
